@@ -1,12 +1,107 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>サンプルページ</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>h1の文字サイズに画像を合わせる</title>
+        <style>
+            .title {
+                display: flex;
+                align-items: center;
+                font-size: 2em; /* 文字サイズを設定 */
+            }
+            .title img {
+                width: 1em; /* 文字サイズと同じ幅 */
+                height: 1em; /* 文字サイズと同じ高さ */
+                margin-right: 0.5em; /* 文字と画像の間にスペースを追加 */
+            }
+        </style>
+        <link rel="stylesheet" href="css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+    </head>
 <body>
-    <h1>こんにちは、世界！</h1>
-    <p>これは簡単なHTMLのサンプルです。変更できているかを確認</p>
+    <header>
+        <div>
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <img src="image/djbot_logo.png" alt="ロゴ"style="height: 2em; width: 2em;">
+                <h1 style="font-size: 2em; text-align: center; margin: 0;">
+                    DJBOT
+                </h1>
+            </div>
+                <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                <a href="https://google.com">TOP</a>
+                <a href="https://google.com">about</a>
+                <a href="https://google.com">contact</a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div id="playlist-disp-area">
+
+         <div id="template-item" class="template-item">  <!-- 表示時にplaylist_idをdivタグのidとして付与する。 -->
+            <h3>playlist_name</h3>
+            <p>playlist_discription</p>
+            <a href="playlist_detail_url">
+                <img src="image_url" alt="playlist_name">
+            </a>
+         </div>
+        </div>
+        <button id="more-disp-button" class="more-disp-button">さらに表示</button>
+        <p id="all-disp" class="all-disp none-element">全て表示中です。</p>
+    </main>
+    <script>
+        async function fetchJson(){
+            response = await fetch('./playlist_list.json');
+            const jsonData = await response.json();
+            return jsonData;
+        }
+
+        async function dispPlaylist(startIdx, endIdx, jsonData) {
+            const container = document.getElementById('playlist-disp-area');
+            const templateDiv = document.getElementById('template-item');
+
+            plList = jsonData.playlist_list;
+            last = plList.length <= endIdx ? plList.length : endIdx;
+            for(let i=startIdx; i<last; i++){
+                plItem = templateDiv.cloneNode(true);
+                plItem.id = `playlist-area-${plList[i].playlist_name}`;
+                plItem.classList.remove('template-item');
+                plItem.classList.add('top-pl-list-item');
+                h3Tag = plItem.querySelector('h3');
+                h3Tag.innerHTML = plList[i].playlist_name;
+                pTag = plItem.querySelector('p');
+                pTag.innerHTML = plList[i].description;
+                aTag = plItem.querySelector('a');
+                aTag.setAttribute("href",plList[i].detail_page_url);
+                imgTag = plItem.querySelector('img');
+                imgTag.setAttribute("src",plList[i].image_url);
+                container.appendChild(plItem);
+            }
+            if(plList.length <= endIdx) {
+                moreBtn.classList.remove('more-disp-button');
+                moreBtn.classList.add('none-element');
+                allP = document.getElementById('all-disp');
+                allP.classList.remove('none-element');
+            }
+        }
+
+        async function fetchData(prevIndex, endIndex) {
+            jsonData = await fetchJson();
+            await dispPlaylist(prevIndex, endIndex, jsonData);
+        }
+
+        params = new URLSearchParams(window.location.search);
+        const indexStr = params.get('index');
+        let prevIndex = indexStr != null?parseInt(indexStr,10):0;
+        let endIndex = prevIndex + 5;
+        fetchData(0, endIndex);     //読み込み時は最初から表示
+
+        moreBtn = document.getElementById('more-disp-button');
+        moreBtn.addEventListener('click', () => {
+            prevIndex = endIndex;
+            endIndex += 5;
+            dispPlaylist(prevIndex, endIndex, jsonData);
+        });
+    </script>
 </body>
 </html>

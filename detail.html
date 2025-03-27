@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>h1の文字サイズに画像を合わせる</title>
+        <style>
+            .title {
+                display: flex;
+                align-items: center;
+                font-size: 2em; /* 文字サイズを設定 */
+            }
+            .title img {
+                width: 1em; /* 文字サイズと同じ幅 */
+                height: 1em; /* 文字サイズと同じ高さ */
+                margin-right: 0.5em; /* 文字と画像の間にスペースを追加 */
+            }
+        </style>
+        <link rel="stylesheet" href="css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+    </head>
+<body>
+    <header>
+        <div>
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <img src="image/djbot_logo.png" alt="ロゴ"style="height: 2em; width: 2em;">
+                <h1 style="font-size: 2em; text-align: center; margin: 0;">
+                    DJBOT
+                </h1>
+            </div>
+                <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                <a href="https://google.com">TOP</a>
+                <a href="https://google.com">about</a>
+                <a href="https://google.com">contact</a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div id="playlist-detail" class="playlist-detail">
+            <h3 style="text-align: center;">playlist_name</h3>
+            <p style="text-align: center;">description</p>
+            <img>
+            <br>
+            <a id="spotify-playlist-link" class="spotify-playlist-link">このプレイリストをSpotifyで開く</a>
+            <br>
+            <div id="track-list" class="track-list">
+
+            </div>
+        </div>
+    </main>
+    <script>
+        async function fetchJson(fileName) {
+            response = await fetch(`detail/${fileName}`);
+            const jsonData = await response.json();
+            return jsonData
+        }
+
+        //playlist詳細をページに表示する。
+        function dispPlaylistDetail(jsonData) {
+            detailDiv = document.getElementById("playlist-detail");
+            h3Tag = detailDiv.querySelector('h3');
+            h3Tag.innerHTML = jsonData.playlist_name;
+            descriptTag = detailDiv.querySelector('p');
+            descriptTag.innerHTML = jsonData.description;
+            imgTag = detailDiv.querySelector('img');
+            imgTag.setAttribute("src",`image/${jsonData.image_file}`);
+            imgTag.setAttribute("alt", `${jsonData.playlist_name}`);
+            sptfLink = document.getElementById('spotify-playlist-link');
+            sptfLink.href = jsonData.playlist_url;
+            trackListDiv = document.getElementById('track-list');
+
+            for(let i=0; i<jsonData.tracks.length; i++){
+                trackObj = jsonData.tracks[i];
+                trckAtag = document.createElement('a');
+                trckAtag.href = trackObj.track_link;
+                trckAtag.innerHTML = String(i+1).padStart(2,'0') + '. ' + trackObj.track_name + ' / ' + trackObj.artists.join(',');
+                trackListDiv.appendChild(trckAtag);
+                trackListDiv.appendChild(document.createElement('br'));
+            }
+        }
+
+        async function fetchData(fileName) {
+            jsonData = await fetchJson(fileName);
+            dispPlaylistDetail(jsonData);
+        }
+        params = new URLSearchParams(window.location.search);
+        fileName = params.get('playlist_id') + '.json';
+        fetchData(fileName);
+    </script>
+</body>
+</html>

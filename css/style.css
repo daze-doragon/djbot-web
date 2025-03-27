@@ -1,0 +1,121 @@
+
+
+header::after {
+    content: "";
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+    height: 5px;
+    width: 70%;
+    border-bottom: 1px solid white;
+}
+
+body {
+    color: white;
+    background-color: black;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.top-pl-list-area {
+    width: 90%;
+    display: block;
+}
+
+.top-pl-list-item {
+    width: 80%;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.top-pl-list-item h3 {
+    margin-bottom: 0;
+}
+
+.top-pl-list-item img {
+    width: 100%;
+}
+
+.top-pl-list-item p {
+    margin: 5px 0;
+    font-size: 13px;
+}
+
+.more-disp-button {
+    display: block;
+    margin: 20px auto;
+    border-radius: 30px;
+    background-color: #465DAA;
+    color:white;
+    padding: 20px;
+    border: none;
+    font-size: 13px;
+}
+
+.all-disp {
+    text-align: center;
+    font-size: 9px;
+}
+
+.none-element {
+    display: none;
+}
+
+.template-item {
+    display: none;
+}
+
+/* 詳細画面のスタイル */
+.playlist-detail {
+    text-align: center;
+}
+
+.spotify-playlist-link {
+    color: white;
+    text-decoration: underline;
+    margin: 20px 0;
+}
+
+.track-list {
+    display:inline-block;
+    text-align: left;
+    width: fit-content;
+}
+
+.track-list a {
+    color:white;
+    text-decoration: none;
+}
+
+@media screen and (max-width:1080px) {
+    .monthly-playlist {
+        width: 90%;
+    }
+}
+
+@media screen and (min-width:1081px) {
+    .monthly-playlist {
+        width: 40%;
+    }
+}
+
+.playlist-frame {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    border-radius: 10px;
+}
+
+
+.playlist-frame img {
+    margin: 10px 10px 10px 10px;
+    width: 64px;
+    height: 64px;
+    border-radius: 10px;
+}
+
+.playlist-frame div {
+    margin-left: 10px;
+}
+.playlist-frame p {
+    font-size: 16px;
+}
