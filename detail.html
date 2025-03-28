@@ -23,7 +23,7 @@
     <header>
         <div>
             <div style="display: flex; align-items: center; justify-content: center;">
-                <img src="image/djbot_logo.png" alt="ロゴ"style="height: 2em; width: 2em;">
+                <img src="images/djbot_logo.png" alt="ロゴ"style="height: 2em; width: 2em;">
                 <h1 style="font-size: 2em; text-align: center; margin: 0;">
                     DJBOT
                 </h1>
@@ -63,7 +63,7 @@
             descriptTag = detailDiv.querySelector('p');
             descriptTag.innerHTML = jsonData.description;
             imgTag = detailDiv.querySelector('img');
-            imgTag.setAttribute("src",`image/${jsonData.image_file}`);
+            imgTag.setAttribute("src",`${jsonData.image_file}`);
             imgTag.setAttribute("alt", `${jsonData.playlist_name}`);
             sptfLink = document.getElementById('spotify-playlist-link');
             sptfLink.href = jsonData.playlist_url;
@@ -84,7 +84,7 @@
             dispPlaylistDetail(jsonData);
         }
         params = new URLSearchParams(window.location.search);
-        fileName = params.get('playlist_id') + '.json';
+        fileName = params.get('playlist_name') + '.json';
         fetchData(fileName);
     </script>
 </body>
