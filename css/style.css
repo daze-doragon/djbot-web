@@ -16,6 +16,10 @@ body {
     font-family: 'Noto Sans', sans-serif;
 }
 
+.header-menu-link {
+    color: gray;
+}
+
 .top-pl-list-area {
     width: 90%;
     display: block;
@@ -118,4 +122,38 @@ body {
 }
 .playlist-frame p {
     font-size: 16px;
+}
+
+/*問い合わせページで使用する*/
+.contact-form {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.contact-form-div {
+    margin: 0 auto;
+    width: fit-content;
+    display: inline-block;
+    justify-content: center;
+}
+
+.contact-form-div input,
+.contact-form-div textarea {
+    margin-top: 10px;
+    display: block;
+    padding: 10px;
+    font-size: 14px;
+}
+
+/*more-disp-buttonとほぼ同じ*/
+.contact-send-button {
+    margin: 10px auto;
+    display: block;
+    border-radius: 10px;
+    background-color: #465DAA;
+    color:white;
+    padding: 5px;
+    border: none;
+    font-size: 13px;
 }

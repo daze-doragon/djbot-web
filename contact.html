@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>DJBOT CONTACT</title>
+        <style>
+            .title {
+                display: flex;
+                align-items: center;
+                font-size: 2em; /* 文字サイズを設定 */
+            }
+            .title img {
+                width: 1em; /* 文字サイズと同じ幅 */
+                height: 1em; /* 文字サイズと同じ高さ */
+                margin-right: 0.5em; /* 文字と画像の間にスペースを追加 */
+            }
+        </style>
+        <link rel="icon" href="images/djbot_logo.png" type="image/png">
+        <link rel="stylesheet" href="css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+    </head>
+<body>
+    <header>
+        <div>
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <img src="images/djbot_logo.png" alt="ロゴ"style="height: 2em; width: 2em;">
+                <h1 style="font-size: 2em; text-align: center; margin: 0;">
+                    DJBOT
+                </h1>
+            </div>
+                <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                    <a class="header-menu-link" href="index.html">TOP</a>
+                    <a class="header-menu-link" href="about.html">about</a>
+                    <a class="header-menu-link" href="contact.html">contact</a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <form class="contact-form" name="contact" method="POST" data-netlify="true">
+            <div class="contact-form-div">
+                <input type="text" name="name" placeholder="名前" required />
+                <input type="email" name="email" placeholder="メールアドレス" required />
+                <textarea name="message" placeholder="問い合わせ内容" required></textarea>
+                <button class="contact-send-button" type="submit">送信</button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>
